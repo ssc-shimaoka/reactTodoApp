@@ -4,9 +4,14 @@ import TodoList from './TodoList';
 import {v4 as uuidv4} from "uuid";
 
 function App() {
+  // Todoリスト定義
   const [todos, setTodos] = useState([]);
+  // 名前欄の入力文字取得用の変数定義
   const todoNameRef = useRef();
 
+  /**
+   * タスク追加関数
+   */
   const handleAddTodo = () => {
     //タスクを追加
     //console.log(todoNameRef.current.value);
@@ -18,6 +23,9 @@ function App() {
     todoNameRef.current.value = null;
   };
 
+  /**
+   * タスク　完了チェック状態変更関数
+   */
   const toggleTodo = (id) => {
     const newTodos = [...todos];
     const todo = newTodos.find((todo) => todo.id === id);
@@ -25,11 +33,16 @@ function App() {
     setTodos(newTodos);
   };
 
+  /**
+   * 完了タスク削除関数
+   * 未完了のタスクのみの新しいリストを作成し、表示反映
+   */
   const handleClrar = () => {
     const newTodos = todos.filter((todo) => !todo.completed);
     setTodos(newTodos);
   };
 
+  // 表示出力
   return (
     <>
       <TodoList todos={todos} toggleTodo={toggleTodo} />
